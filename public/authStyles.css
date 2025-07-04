@@ -1,0 +1,82 @@
+.login-container,
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+form {
+    background-color: var(--bg);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    /*box-shadow: 0 4px 10px oklch(from var(--text) calc(l * 0.25) c h);*/
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+    border-top: 1px solid var(--highlight);
+    transition: filter 0.3s ease-in-out;
+}
+
+form.blurred {
+    filter: blur(4px);
+    /* Apply blur effect */
+    pointer-events: none;
+    /* Disable interactions when blurred */
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+a {
+    color: var(--text-muted);
+    text-align: center;
+    margin: 0;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--text);
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--loading-overlay-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.75rem;
+    z-index: 10;
+    /* Ensure it's on top of the form */
+    opacity: 0;
+    /* Start hidden */
+    visibility: hidden;
+    /* Start hidden */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.loading-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.name-fields {
+    display: flex; /* Makes children (sections) line up horizontally */
+    gap: 1rem; /* Adds space between First Name and Last Name sections */
+}
+
+.name-fields section {
+    flex: 1; /* Allows each section to take up equal width */
+}

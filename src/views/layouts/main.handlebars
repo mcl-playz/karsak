@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karsak</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/chats">Chats</a></li>
+                <li><a>Profile</a></li>
+                <li><a>Settings</a></li>
+            </ul>
+        </nav>
+        <button onclick="window.location.href = '/login'">Login</button>
+    </header>
+    <div class="error-container" id="errorContainer">
+        <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="danger-icon">
+                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path>
+                <path d="M12 9v4"></path>
+                <path d="M12 17h.01"></path>
+            </svg>
+        </span>
+        <span>
+            <p id="errorText">An error occured!</p>
+        </span>
+    </div>
+    {{{body}}}
+</body>
+<script>
+    let timer;
+
+    function showError(message) {
+        const errorContainer = document.getElementById("errorContainer");
+        const errorText = document.getElementById("errorText");
+
+        clearTimeout(timer);
+        errorText.innerHTML = message;
+        errorContainer.classList.add("visible");
+        timer = setTimeout(() => {
+            hideError();
+        }, 3000);
+    }
+
+    function hideError() {
+        const errorContainer = document.getElementById("errorContainer");
+        const errorText = document.getElementById("errorText");
+
+        errorContainer.classList.remove('visible');
+    }
+</script>
+
+</html>

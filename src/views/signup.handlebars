@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="/authStyles.css">
+<div class="signup-container">
+    <form id="signupForm" style="max-width: 400px;">
+        <h2 style="text-align: center; margin: 0;">Sign Up</h2>
+        <a href="/login">Already have an account?</a>
+        <section>
+            <label for="username">Username</label>
+            <input name="username" id="username" type="text" placeholder="Username" minlength="6" required>
+        </section>
+        <div class="name-fields">
+            <section>
+                <label for="firstName">First Name</label>
+                <input name="firstName" id="firstName" type="text" placeholder="First Name" minlength="2" required>
+            </section>
+            <section>
+                <label for="lastName">Last Name</label>
+                <input name="lastName" id="lastName" type="text" placeholder="Last Name" minlength="2" required>
+            </section>
+        </div>
+        <section>
+            <label for="email">Email</label>
+            <input name="email" id="email" type="email" placeholder="Email" required>
+        </section>
+        <section>
+            <label for="password">Password</label>
+            <input name="password" id="password" type="password" placeholder="Password" required>
+        </section>
+        <section>
+            <label for="confirmPassword">Confirm Password</label>
+            <input name="confirmPassword" id="confirmPassword" type="password" placeholder="Confirm Password" required>
+        </section>
+        <button style="width: 100px; align-self: center;">Sign Up</button>
+    </form>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const signupForm = document.getElementById("signupForm");
+        const usernameInput = document.getElementById("username");
+        const firstNameInput = document.getElementById("firstName");
+        const lastNameInput = document.getElementById("lastName");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const confirmPasswordInput = document.getElementById("confirmPassword");
+        const loadingOverlay = document.getElementById("loadingOverlay");
+        signupForm.setAttribute('novalidate', '');
+
+        signupForm.addEventListener("submit", (event) => {
+            event.preventDefault()
+
+            if (!usernameInput.validity.valid) {
+                return showError("That username is too short");
+            } else if (!firstNameInput.validity.valid || !lastNameInput.validity.valid) {
+                return showError("The name fields are invalid");
+            } else if (!emailInput.validity.valid) {
+                return showError("Invalid email address")
+            } else if (!passwordInput.validity.valid) {
+                return showError("Invalid password");
+            } else if (passwordInput.value !== confirmPasswordInput.value) {
+                return showError("The passwords are not the same");
+            }
+
+            const formData = new FormData(signupForm);
+            const data = new URLSearchParams(formData);
+            data.delete("confirmPassword")
+
+            signupForm.classList.add('blurred');
+            loadingOverlay.classList.add('active');
+
+            fetch("/api/signup", {
+                method: "POST",
+                body: data,
+            }).then(response => response.json())
+                .then(result => {
+                    signupForm.classList.remove('blurred');
+                    loadingOverlay.classList.remove('active');
+                    if (result.error) {
+                        return showError(result.error.message);
+                    }
+                    window.location.href = "/chats";
+                })
+        });
+    });
+</script>
