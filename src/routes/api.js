@@ -41,7 +41,7 @@ router.post('/login', async (req, res) => {
 	return res.json(apiUtil.success({ user }))
 });
 
-router.post('/signup', async (req, res) => {
+router.post('/user/create', async (req, res) => {
     const { username, firstName, lastName, email, password } = req.body;
 
 	if(!/^[a-zA-Z0-9._-]+$/.test(username)){

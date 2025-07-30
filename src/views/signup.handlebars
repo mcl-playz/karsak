@@ -71,7 +71,7 @@
             signupForm.classList.add('blurred');
             loadingOverlay.classList.add('active');
 
-            fetch("/api/signup", {
+            fetch("/api/user/create", {
                 method: "POST",
                 body: data,
             }).then(response => response.json())
