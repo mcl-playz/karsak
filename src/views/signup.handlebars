@@ -5,7 +5,7 @@
         <a href="/login">Already have an account?</a>
         <section>
             <label for="username">Username</label>
-            <input name="username" id="username" type="text" placeholder="Username" minlength="6" required>
+            <input name="username" id="username" type="text" placeholder="Username" minlength="6" maxlength="16" required>
         </section>
         <div class="name-fields">
             <section>
@@ -52,6 +52,8 @@
 
             if (!usernameInput.validity.valid) {
                 return showError("That username is too short");
+            } else if (usernameInput.validity.tooLong) {
+                return showError("That username is too long");
             } else if (!firstNameInput.validity.valid || !lastNameInput.validity.valid) {
                 return showError("The name fields are invalid");
             } else if (!emailInput.validity.valid) {

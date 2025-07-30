@@ -37,6 +37,20 @@ const getUserByUsername = async (username) => {
 	}
 };
 
+const getUser = async (userIdentifier) => {
+	try {
+		var user = null
+		if(userIdentifier.charAt(0) == "@"){
+			user = await getUserByUsername(userIdentifier.substring(1))
+		} else {
+			user = await getUserByEmail(userIdentifier)
+		}
+		return user;
+	} catch (err){
+		throw err;
+	}
+};
+
 const getCredentials = async (email) => {
 	try {
 		const [credentialsResult] = await db.query("SELECT email, password FROM users WHERE email = ?", [email]);
@@ -48,4 +62,4 @@ const getCredentials = async (email) => {
 	}
 };
 
-module.exports = { createUser, getUserByEmail, getUserByUsername, getCredentials };
+module.exports = { createUser, getUserByEmail, getUserByUsername, getUser, getCredentials };

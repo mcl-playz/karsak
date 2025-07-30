@@ -1,0 +1,95 @@
+<style>
+    #profileContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    #profile {
+        max-width: 500px;
+        background-color: var(--bg);
+        padding: 2rem;
+        border-radius: 0.75rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        border: 1px solid var(--border);
+        border-top: 1px solid var(--highlight);
+    }
+
+    #profilePictureContainer {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    #profilePicture {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 100%;
+        object-fit: cover;
+    }
+
+    .profile-name {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--text);
+    }
+
+    .profile-username {
+        font-size: 1rem;
+        color: var(--text-muted);
+    }
+
+    .separator {
+        border-top: 1px solid var(--border);
+        margin-top: 0.1rem;
+        margin-bottom: 0.1rem;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .profileDetails {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+</style>
+<div id="profileContainer">
+    <div id="profile">
+        <div id="profilePictureContainer">
+            <!-- Using the uploaded image as the profile picture -->
+            <img id="profilePicture"
+                src="/api/user/@{{user.username}}/icon"
+                alt="Profile Picture">
+            <div class="profileDetails">
+                <div class="name-username-group">
+                    <p class="profile-name">{{user.first_name}} {{user.last_name}}</p>
+                    <p class="profile-username">@{{user.username}}</p>
+                </div>
+                {{#unless isSelf}}
+                <button class="add-friend-button">Add Friend</button>
+                {{/unless}}
+            </div>
+        </div>
+        <div class="button-group">
+            <button style="flex-grow: 1;">Message</button>
+        </div>
+        <div class="separator"></div>
+        <div class="flex-grow">
+            {{!-- Profile Content --}}
+            <p style="color: var(--text-muted);">Hello am 48 year old man from somalia. Sorry for my bed england. I
+                selled my wife for internet connection for play “conter stirk”</p>
+        </div>
+    </div>
+</div>

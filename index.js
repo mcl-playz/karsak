@@ -40,16 +40,16 @@ app.use(session({
 }));
 
 // --- Routes ---
-app.get("/", (req, res) => {
-    res.render("index");
-});
-app.get("/login", (req, res) => {
-    res.render("login");
-});
-app.get("/signup", (req, res) => {
-    res.render("signup");
-});
+app.use("/", require("./src/routes/root.js"));
 app.use("/api", require("./src/routes/api.js"));
+
+// --- 404 ---
+app.get('/404', (req, res) => {
+    res.status(404).render("404")
+});
+app.use((req, res, next) => {
+    res.redirect("/404")
+});
 
 // --- Start the Server ---
 app.listen(app.get("port"), () => {
