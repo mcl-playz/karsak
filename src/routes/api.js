@@ -38,7 +38,7 @@ router.post('/login', async (req, res) => {
 
 	const user = await User.getUserByEmail(email);
 	req.session.user = user;
-	return res.json(apiUtil.success({ user }))
+	return res.json(apiUtil.success({ user }));
 });
 
 router.post('/user/create', async (req, res) => {

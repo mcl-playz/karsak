@@ -45,7 +45,7 @@ app.use("/api", require("./src/routes/api.js"));
 
 // --- 404 ---
 app.get('/404', (req, res) => {
-    res.status(404).render("404")
+    res.status(404).render('404');
 });
 app.use((req, res, next) => {
     res.redirect("/404")
